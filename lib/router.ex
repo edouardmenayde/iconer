@@ -13,6 +13,8 @@ defmodule Iconer.Router do
     plug(Plug.Static, at: "/#{id}", from: path)
   end)
 
+  @index_template File.read!("lib/templates/index.html.eex")
+
   @sets sets
 
   plug(:match)
@@ -32,7 +34,7 @@ defmodule Iconer.Router do
         Map.put(set, :icons, icons)
     end)
 
-    send_resp(conn, 200, EEx.eval_file("lib/templates/index.html.eex", [sets: sets]))
+    send_resp(conn, 200, EEx.eval_file(@index_template, [sets: sets]))
   end
 
   match "/set/:selected", via: :get do
