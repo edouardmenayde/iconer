@@ -21,4 +21,5 @@ be found at [https://hexdocs.pm/iconer](https://hexdocs.pm/iconer).
 
 ## Attributions
 
-Example icons from [https://github.com/feathericons/feather](Feather icons)
+- Example icons from [https://github.com/feathericons/feather](Feather icons)
+- [https://milligram.io/](Milligram minimal CSS framework)

@@ -10,8 +10,6 @@ defmodule Iconer.Router do
       |> Enum.map(fn (%{path: path, name: name} = set) -> Map.put(set, :id, Path.basename(path)) end)
 
   Enum.each(sets, fn %{path: path, id: id} ->
-    IO.inspect("/#{id}")
-    IO.inspect(path)
     plug(Plug.Static, at: "/#{id}", from: path)
   end)
 
@@ -26,15 +24,38 @@ defmodule Iconer.Router do
         target_path = Path.join(path, "*.svg")
         icons = Path.wildcard(target_path)
         |> Enum.map(fn p ->
-          IO.inspect(p)
-          icon = Path.basename(p) |> IO.inspect()
+          icon = Path.basename(p)
 
-          Path.join("/#{id}", icon)
+          %{path: Path.join("/#{id}", icon), name: String.replace(icon, ".svg", "")}
         end)
 
         Map.put(set, :icons, icons)
     end)
-    send_resp(conn, 200, EEx.eval_file("lib/templates/index.html.eex", sets: sets))
+
+    send_resp(conn, 200, EEx.eval_file("lib/templates/index.html.eex", [sets: sets]))
+  end
+
+  match "/set/:selected", via: :get do
+    sets = @sets
+    |> Enum.map(fn %{id: id, path: path} = set ->
+      IO.inspect(id)
+      IO.inspect(selected)
+      if selected == "" || selected == id do
+        target_path = Path.join(path, "*.svg")
+        icons = Path.wildcard(target_path)
+        |> Enum.map(fn p ->
+          icon = Path.basename(p)
+
+          %{path: Path.join("/#{id}", icon), name: String.replace(icon, ".svg", "")}
+        end)
+
+        Map.put(set, :icons, icons)
+      else
+        set
+      end
+    end)
+
+    send_resp(conn, 200, EEx.eval_file("lib/templates/index.html.eex", [sets: sets]))
   end
 
   match _ do
