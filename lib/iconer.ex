@@ -6,9 +6,12 @@ defmodule Iconer do
   """
 
   def start(_type, _args) do
+    port = Application.get_env(:iconer, :port, 1212)
     children = [
-      Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Iconer.Router, options: [port: 1212])
+      Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Iconer.Router, options: [port: port])
     ]
+
+    IO.puts("∞ Iconer is started : http://localhost:1212 ∞")
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

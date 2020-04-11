@@ -19,3 +19,6 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/iconer](https://hexdocs.pm/iconer).
 
+## Attributions
+
+Example icons from [https://github.com/feathericons/feather](Feather icons)
