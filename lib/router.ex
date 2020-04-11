@@ -2,10 +2,6 @@ defmodule Iconer.Router do
   use Plug.Router
   use Plug.Debugger
 
-  require Logger
-
-  plug(Plug.Logger, log: :debug)
-
   defp get_sets() do
     Application.get_env(:iconer, :sets, [])
     |> Enum.map(fn (%{path: path} = set) -> Map.put(set, :id, Path.basename(path)) end)
