@@ -7,7 +7,7 @@ defmodule Iconer.Router do
   plug(Plug.Logger, log: :debug)
 
   sets = Application.get_env(:iconer, :sets, [])
-      |> Enum.map(fn (%{path: path, name: name} = set) -> Map.put(set, :id, Path.basename(path)) end)
+      |> Enum.map(fn (%{path: path} = set) -> Map.put(set, :id, Path.basename(path)) end)
 
   Enum.each(sets, fn %{path: path, id: id} ->
     plug(Plug.Static, at: "/#{id}", from: path)

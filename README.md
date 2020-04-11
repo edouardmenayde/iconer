@@ -1,6 +1,6 @@
 # Iconer
 
-Iconer lets you manager your svg icons without depending on any external service.
+Iconer lets you manager your svg icons without depending on any external service in a simple web interface.
 You just add Iconer as a dev dependency to your project and you can manage your icons.
 
 ## Installation
