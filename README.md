@@ -1,6 +1,7 @@
 # Iconer
 
-**TODO: Add description**
+Iconer lets you manager your svg icons without depending on any external service.
+You just add Iconer as a dev dependency to your project and you can manage your icons.
 
 ## Installation
 
@@ -10,7 +11,7 @@ by adding `iconer` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:iconer, "~> 0.1.0"}
+    {:iconer, "~> 0.1.0", only: :test}
   ]
 end
 ```
@@ -18,6 +19,13 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/iconer](https://hexdocs.pm/iconer).
+
+## Todo
+
+- [ ] Add filtering
+- [ ] Add import
+- [ ] Add updating
+- [ ] Add deletion
 
 ## Attributions
 
