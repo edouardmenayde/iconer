@@ -6,22 +6,18 @@ defmodule Iconer.Router do
 
   plug(Plug.Logger, log: :debug)
 
-  sets = Application.get_env(:iconer, :sets, [])
-      |> Enum.map(fn (%{path: path} = set) -> Map.put(set, :id, Path.basename(path)) end)
-
-  Enum.each(sets, fn %{path: path, id: id} ->
-    plug(Plug.Static, at: "/#{id}", from: path)
-  end)
+  defp get_sets() do
+    Application.get_env(:iconer, :sets, [])
+    |> Enum.map(fn (%{path: path} = set) -> Map.put(set, :id, Path.basename(path)) end)
+  end
 
   @index_template File.read!("priv/templates/index.html.eex")
-
-  @sets sets
 
   plug(:match)
   plug(:dispatch)
 
   get "/" do
-    sets = @sets
+    sets = get_sets()
     |> Enum.map(fn %{id: id, path: path} = set ->
         target_path = Path.join(path, "*.svg")
         icons = Path.wildcard(target_path)
@@ -38,10 +34,8 @@ defmodule Iconer.Router do
   end
 
   match "/set/:selected", via: :get do
-    sets = @sets
+    sets = get_sets()
     |> Enum.map(fn %{id: id, path: path} = set ->
-      IO.inspect(id)
-      IO.inspect(selected)
       if selected == "" || selected == id do
         target_path = Path.join(path, "*.svg")
         icons = Path.wildcard(target_path)
@@ -57,10 +51,21 @@ defmodule Iconer.Router do
       end
     end)
 
-    send_resp(conn, 200, EEx.eval_file("lib/templates/index.html.eex", [sets: sets]))
+    send_resp(conn, 200, EEx.eval_string(@index_template, [sets: sets]))
   end
 
-  match _ do
-    send_resp(conn, 404, "oops")
+  match "*any" do
+    id? = hd(any)
+
+    matching_set = Enum.find(get_sets(), fn set ->
+      set.id == id?
+    end)
+
+    if matching_set do
+      opts = Plug.Static.init([at: "/#{matching_set.id}", from: matching_set.path])
+      Plug.Static.call(conn, opts)
+    else
+      send_resp(conn, 404, "oops")
+    end
   end
 end
