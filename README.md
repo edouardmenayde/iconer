@@ -6,7 +6,9 @@
 Iconer lets you manager your svg icons without depending on any external service in a simple web interface.
 You just add Iconer as a dev dependency to your project and you can manage your icons.
 
-![Homescreen](./docs/images/homescreen.png)
+<div style="text-align: center">
+  <img src="./docs/images/homescreen.png" width="500" height="auto"/>
+</div>
 
 ## Installation
 
