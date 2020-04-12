@@ -1,5 +1,8 @@
 # Iconer
 
+![Hex.pm](https://img.shields.io/hexpm/l/iconer)
+
+
 Iconer lets you manager your svg icons without depending on any external service in a simple web interface.
 You just add Iconer as a dev dependency to your project and you can manage your icons.
 
@@ -11,7 +14,7 @@ by adding `iconer` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:iconer, "~> 0.1.0", only: :test}
+    {:iconer, "~> 0.1.1-alpha", only: :dev}
   ]
 end
 ```
