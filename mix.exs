@@ -12,7 +12,7 @@ defmodule Iconer.MixProject do
       package: package(),
       docs: docs(),
       name: "Iconer",
-      source_url: "https://github.com/edouardmenayde/framboise"
+      source_url: "https://github.com/edouardmenayde/iconer"
     ]
   end
 
