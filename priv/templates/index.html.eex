@@ -33,7 +33,7 @@
         }
         .main {
             margin-left: var(--header-width);
-            width: 100vw - var(--header-width);
+            padding: 1em;
         }
 
         .set {
@@ -47,8 +47,9 @@
             max-width: 100vw - var(--header-width);
             display: grid;
             grid-gap: 5em;
-            grid-template-columns: repeat(8, auto);
+            grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
         }
+
         .icon {
             display: flex;
             flex-direction: column;
@@ -96,7 +97,7 @@
         </nav>
     </header>
 
-    <main class="main container">
+    <main class="main">
         <%= Enum.map(sets, fn set -> %>
             <%= if Map.get(set, :icons) do %>
                 <div id="<%= set.id %>" class="set">
